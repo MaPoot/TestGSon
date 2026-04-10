@@ -12,13 +12,19 @@ import pojo.ZipInfo;
 
 import java.io.StringReader;
 
-public class Main {
+import static org.hamcrest.Matchers.equalTo;
+
+public class APITest {
     public static void main(String[] args) throws JsonProcessingException, JAXBException {
         Response response = RestAssured.get("https://api.zippopotam.us/us/33164")
                 .then()
                 .assertThat()
+                .body("country", equalTo("United States"))
+                .body("'country abbreviation'", equalTo("US"))
                 .statusCode(200)
                 .extract().response();
+
+        response.prettyPrint();
 
         ObjectMapper mapper = new ObjectMapper();
 
