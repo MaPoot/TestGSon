@@ -16,7 +16,9 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class APITest {
     public static void main(String[] args) throws JsonProcessingException, JAXBException {
-        Response response = RestAssured.get("https://api.zippopotam.us/us/33164")
+        Response response = RestAssured.given()
+                .log().all()
+                .get("https://api.zippopotam.us/us/33164")
                 .then()
                 .assertThat()
                 .body("country", equalTo("United States"))
